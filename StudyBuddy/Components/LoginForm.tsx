@@ -12,6 +12,7 @@ export default function LoginForm({ navigation }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Handle Login functionality
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields");
@@ -21,11 +22,9 @@ export default function LoginForm({ navigation }: Props) {
     try {
       const storedCredentials = await AsyncStorage.getItem("userCredentials");
       if (storedCredentials) {
-        const {
-          email: storedEmail,
-          password: storedPassword,
-          userName: storedUserName,
-        } = JSON.parse(storedCredentials);
+        const { email: storedEmail, password: storedPassword, userName: storedUserName } = JSON.parse(storedCredentials);
+
+        // Check if input email and password match stored credentials
         if (email === storedEmail && password === storedPassword) {
           Alert.alert("Success", "User logged in successfully");
           navigation.navigate("Home", { username: storedUserName });
@@ -42,14 +41,17 @@ export default function LoginForm({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>CovidTrack</Text>
       <Text style={styles.title}>Welcome to CovidTrack</Text>
+
+      {/* Email Input */}
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
+
+      {/* Password Input */}
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -57,11 +59,15 @@ export default function LoginForm({ navigation }: Props) {
         onChangeText={setPassword}
         secureTextEntry
       />
+
+      {/* Sign In Button */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Signin</Text>
       </TouchableOpacity>
+
+      {/* Navigation Link to SignUp */}
       <Text
-        style={styles.textClass}
+        style={styles.link}
         onPress={() => navigation.navigate("SignUp")}
       >
         Create Account

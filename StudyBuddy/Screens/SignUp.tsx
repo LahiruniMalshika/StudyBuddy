@@ -1,8 +1,8 @@
-
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
+import styles from '../Styles/Styles';
 
 type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>;
 
@@ -11,23 +11,75 @@ type Props = {
 };
 
 const SignUp: React.FC<Props> = ({ navigation }) => {
+  // Managing state for form inputs
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Handle Sign Up action (you can add more functionality here)
+  const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
+    }
+
+    // Perform form validation and authentication here
+    console.log('Signing up with:', { name, email, password });
+
+    // Example of navigation after signup (this can be changed as per your requirements)
+    navigation.navigate('SignIn');
+  };
+
   return (
     <View style={styles.container}>
+      {/* Image Container */}
       <View style={styles.imageContainer}>
         <Image 
-          source={require('../assets/backgroundImage.png')} // Updated with the uploaded image
+          source={require('../assets/backgroundImage.png')} // Ensure this path is correct
           style={styles.backgroundImage}
         />
       </View>
 
+      {/* Form Container */}
       <View style={styles.formContainer}>
         <Text style={styles.title}>Sign Up</Text>
-        <TextInput placeholder="Name" style={styles.input} />
-        <TextInput placeholder="Email" style={styles.input} />
-        <TextInput placeholder="Password" secureTextEntry style={styles.input} />
-        <TouchableOpacity style={styles.button}>
+        
+        {/* Input Fields */}
+        <TextInput
+          placeholder="Username"
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          placeholder="Password"
+          secureTextEntry
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+        />
+        {/* Confirm Password Field */}
+        <TextInput
+          placeholder="Confirm Password"
+          secureTextEntry
+          style={styles.input}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+        />
+
+        {/* Sign Up Button */}
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
+
+        {/* Link to Sign In */}
         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.link}>Already have an account? Sign In</Text>
         </TouchableOpacity>
@@ -35,70 +87,5 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#F8F9FD',
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  backgroundImage: {
-    width: '100%',
-    height: '50%',
-    resizeMode: 'cover',
-  },
-  formContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: -50, // Adjust to overlap form slightly over image
-    width: '90%',
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#333',
-    marginBottom: 25,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderColor: '#E5E5E5',
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    marginBottom: 20,
-    backgroundColor: '#FDFDFD',
-    fontSize: 16,
-    
-    
-  },
-  button: {
-    width: '100%',
-    backgroundColor: '#6200EE',
-    paddingVertical: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  link: {
-    marginTop: 15,
-    color: '#6200EE',
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  },
-});
 
 export default SignUp;
