@@ -8,6 +8,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F8F9FD',
   },
+  heading: {
+
+    fontSize: 24,
+
+    fontWeight: "bold",
+
+    marginVertical: 20,
+
+  },
   imageContainer: {
     flex: 1,
     justifyContent: 'center',

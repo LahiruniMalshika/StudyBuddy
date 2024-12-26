@@ -14,20 +14,17 @@ export default function RegistrationForm({ navigation }: Props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Email validation regex
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
-  // Password validation regex
   const validatePassword = (password: string) => {
     const re =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(password);
   };
 
-  // Handle registration logic
   const handleRegistration = async () => {
     if (!email || !password || !confirmPassword) {
       Alert.alert("Error", "Please fill in all fields");
@@ -50,15 +47,19 @@ export default function RegistrationForm({ navigation }: Props) {
     }
 
     try {
+      const storedCredentials = await AsyncStorage.getItem("userCredentials");
+      if (storedCredentials) {
+        const existingUser = JSON.parse(storedCredentials);
+        if (existingUser.email === email) {
+          Alert.alert("Error", "This email is already registered.");
+          return;
+        }
+      }
+
       const userCredentials = { email, password, userName };
       await AsyncStorage.setItem("userCredentials", JSON.stringify(userCredentials));
-
-      // Debugging AsyncStorage to see if the credentials were stored
-      const storedData = await AsyncStorage.getItem("userCredentials");
-      console.log("Stored user credentials:", storedData);
-
       Alert.alert("Success", "User registered successfully");
-      navigation.navigate("SignIn");  // Ensure SignIn screen name is correct
+      navigation.navigate("SignIn"); // Navigate to the login screen
     } catch (error) {
       console.error("Error saving user credentials:", error);
       Alert.alert("Error", "Failed to save user credentials");
@@ -68,24 +69,18 @@ export default function RegistrationForm({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
-      
-      {/* Email Input */}
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
-      
-      {/* Username Input */}
       <TextInput
         style={styles.input}
-        placeholder="UserName"
+        placeholder="Username"
         value={userName}
         onChangeText={setUserName}
       />
-      
-      {/* Password Input */}
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -93,8 +88,6 @@ export default function RegistrationForm({ navigation }: Props) {
         onChangeText={setPassword}
         secureTextEntry
       />
-      
-      {/* Confirm Password Input */}
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
@@ -102,18 +95,11 @@ export default function RegistrationForm({ navigation }: Props) {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-      
-      {/* Register Button */}
       <TouchableOpacity style={styles.button} onPress={handleRegistration}>
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
-      
-      {/* Navigation Link to SignIn */}
-      <Text
-        style={styles.link}
-        onPress={() => navigation.navigate("SignIn")}
-      >
-        Already have an account? Sign In
+      <Text style={styles.link} onPress={() => navigation.navigate("SignIn")}>
+        Already have an account? Sign in
       </Text>
     </View>
   );
