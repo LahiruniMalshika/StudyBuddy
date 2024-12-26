@@ -19,7 +19,9 @@ const BookCard: React.FC<BookCardProps> = ({ title, author, cover, description, 
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.author}>{author}</Text>
       <Text style={styles.description}>{description}</Text>
+      
     </TouchableOpacity>
+    
   );
 };
 

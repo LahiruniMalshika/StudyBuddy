@@ -85,7 +85,7 @@ export default function LoginForm({ navigation }: Props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to CovidTrack</Text>
+            <Text style={styles.title}>Welcome to StudyBuddy</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -102,7 +102,7 @@ export default function LoginForm({ navigation }: Props) {
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
-            <Text style={styles.link} onPress={() => navigation.navigate("SignUp")}>
+            <Text style={styles.link} onPress={() => navigation.navigate("HomeScreen")}>
                 Create Account
             </Text>
         </View>
