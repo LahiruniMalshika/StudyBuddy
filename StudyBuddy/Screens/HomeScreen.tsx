@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import BookCard from "../Components/BookCard";
-
+import { RootStackParamList } from "../App";
+import { StackScreenProps } from "@react-navigation/stack";
+import styles from "../Styles/HomeStyle";
+import {useCount } from "../ContextAPI/CountProvider";
+type Props = StackScreenProps<RootStackParamList, "Home">;
 interface Book {
   key: string;
   title: string;
@@ -11,9 +15,17 @@ interface Book {
   description: string; // Added description field
 }
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation, route }: Props) {
+  const username = route.params?.username || "Guest";
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const {
+    bookCount,
+    setBookCount,
+    selectedBooks,
+    setSelectedBooks,
+  } = useCount();
+
 
   useEffect(() => {
     fetchBooks();
@@ -42,10 +54,19 @@ export default function HomeScreen() {
       Alert.alert("Error", "Failed to fetch books.");
     }
   };
+  const handleAddBooks = (book: Book) => {
+    setSelectedBooks([...selectedBooks, book]);
+    setBookCount(bookCount + 1);
+  };
+
+  const handleRemovBooks = (book: Book) => {
+    setSelectedBooks([...selectedBooks, book]);
+    setBookCount(bookCount - 1);
+  };
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={styles.container}>
         <ActivityIndicator size="large" color="#6200EE" />
       </View>
     );
@@ -53,6 +74,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
+         <Text style={styles.username}>Welcome, {username}!</Text>
       <Text style={styles.heading}>Popular Science Fiction Books</Text>
       <FlatList
         data={books}
@@ -65,33 +87,47 @@ export default function HomeScreen() {
             description={item.description}
             status="Available" // Example status
             onPress={() => Alert.alert("Book Selected", `You selected ${item.title}`)}
+            onAdd={() => Alert.alert("Book Added", `You added ${item.title}`)}
+            onRemove={() => Alert.alert("Book Removed", `You removed ${item.title}`)}
           />
         )}
         numColumns={2} // Two cards per row
         contentContainerStyle={styles.list}
       />
+      <View style={styles.exerciseCountContainer}>
+        <Text style={styles.exerciseCountText}>
+          Books Added: {bookCount}
+        </Text>
+        
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#F8F9FD",
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  list: {
-    paddingBottom: 20,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 10,
+//     backgroundColor: "#F8F9FD",
+//   },
+//   loadingContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   heading: {
+//     fontSize: 24,
+//     fontWeight: "bold",
+//     marginBottom: 15,
+//     textAlign: "center",
+//   },
+//   list: {
+//     paddingBottom: 20,
+//   },
+//   username: {
+//     fontSize: 24,
+//     fontWeight: "bold",
+//     marginBottom: 16,
+//     color: "#333333", // Dark Gray text
+//   },
+// });

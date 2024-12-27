@@ -46,6 +46,24 @@ export default function RegistrationForm({ navigation }: Props) {
       return;
     }
 
+    // try {
+    //   const storedCredentials = await AsyncStorage.getItem("userCredentials");
+    //   if (storedCredentials) {
+    //     const existingUser = JSON.parse(storedCredentials);
+    //     if (existingUser.email === email) {
+    //       Alert.alert("Error", "This email is already registered.");
+    //       return;
+    //     }
+    //   }
+
+    //   const userCredentials = { email, password, userName };
+    //   await AsyncStorage.setItem("userCredentials", JSON.stringify(userCredentials));
+    //   Alert.alert("Success", "User registered successfully");
+    //   navigation.navigate("SignIn"); // Navigate to the login screen
+    // } catch (error) {
+    //   console.error("Error saving user credentials:", error);
+    //   Alert.alert("Error", "Failed to save user credentials");
+    // }
     try {
       await AsyncStorage.setItem(
         "userCredentials",
@@ -60,7 +78,6 @@ export default function RegistrationForm({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>CovidTrack</Text>
       <Text style={styles.title}>Create Account</Text>
       <TextInput
         style={styles.input}
@@ -70,7 +87,7 @@ export default function RegistrationForm({ navigation }: Props) {
       />
       <TextInput
         style={styles.input}
-        placeholder="UserName"
+        placeholder="Username"
         value={userName}
         onChangeText={setUserName}
       />
@@ -91,11 +108,8 @@ export default function RegistrationForm({ navigation }: Props) {
       <TouchableOpacity style={styles.button} onPress={handleRegistration}>
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
-      <Text
-        style={styles.textClass}
-        onPress={() => navigation.navigate("SignIn")}
-      >
-        SignIn
+      <Text style={styles.link} onPress={() => navigation.navigate("SignIn")}>
+        Already have an account? Sign in
       </Text>
     </View>
   );
