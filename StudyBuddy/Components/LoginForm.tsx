@@ -53,34 +53,55 @@ export default function LoginForm({ navigation }: Props) {
           return;
         }
       
+        // try {
+        //   // Retrieve stored credentials from AsyncStorage
+        //   const storedCredentials = await AsyncStorage.getItem("userCredentials");
+        //   console.log("Stored credentials:", storedCredentials); // Debugging line
+      
+        //   if (storedCredentials) {
+        //     const { email: storedEmail, password: storedPassword, userName: storedUserName } = JSON.parse(storedCredentials);
+      
+        //     console.log("Stored Email:", storedEmail); // Debugging line
+        //     console.log("Stored Password:", storedPassword); // Debugging line
+        //     console.log("Entered Email:", email); // Debugging line
+        //     console.log("Entered Password:", password); // Debugging line
+      
+        //     // Validate input credentials with stored credentials
+        //     if (email === storedEmail && password === storedPassword) {
+        //       Alert.alert("Success", "User logged in successfully");
+        //       navigation.navigate("Home", { username: storedUserName });
+        //     } else {
+        //       Alert.alert("Error", "Invalid email or password");
+        //     }
+        //   } else {
+        //     Alert.alert("Error", "No user found. Please register first.");
+        //   }
+        // } catch (error) {
+        //   console.error("Error retrieving user credentials:", error);
+        //   Alert.alert("Error", "Failed to retrieve user credentials");
+        // }
+        
         try {
-          // Retrieve stored credentials from AsyncStorage
-          const storedCredentials = await AsyncStorage.getItem("userCredentials");
-          console.log("Stored credentials:", storedCredentials); // Debugging line
-      
-          if (storedCredentials) {
-            const { email: storedEmail, password: storedPassword, userName: storedUserName } = JSON.parse(storedCredentials);
-      
-            console.log("Stored Email:", storedEmail); // Debugging line
-            console.log("Stored Password:", storedPassword); // Debugging line
-            console.log("Entered Email:", email); // Debugging line
-            console.log("Entered Password:", password); // Debugging line
-      
-            // Validate input credentials with stored credentials
-            if (email === storedEmail && password === storedPassword) {
-              Alert.alert("Success", "User logged in successfully");
-              navigation.navigate("Home", { username: storedUserName });
+            const storedCredentials = await AsyncStorage.getItem("userCredentials");
+            if (storedCredentials) {
+              const {
+                email: storedEmail,
+                password: storedPassword,
+                userName: storedUserName,
+              } = JSON.parse(storedCredentials);
+              if (email === storedEmail && password === storedPassword) {
+                Alert.alert("Success", "User logged in successfully");
+                navigation.navigate("Home", { username: storedUserName });
+              } else {
+                Alert.alert("Error", "Invalid email or password");
+              }
             } else {
-              Alert.alert("Error", "Invalid email or password");
+              Alert.alert("Error", "No user found. Please register first.");
             }
-          } else {
-            Alert.alert("Error", "No user found. Please register first.");
+          } catch (error) {
+            Alert.alert("Error", "Failed to retrieve user credentials");
           }
-        } catch (error) {
-          console.error("Error retrieving user credentials:", error);
-          Alert.alert("Error", "Failed to retrieve user credentials");
-        }
-      };
+        };
       
 
     return (
@@ -102,7 +123,7 @@ export default function LoginForm({ navigation }: Props) {
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
-            <Text style={styles.link} onPress={() => navigation.navigate("HomeScreen")}>
+            <Text style={styles.link} onPress={() => navigation.navigate("SignUp")}>
                 Create Account
             </Text>
         </View>

@@ -46,22 +46,32 @@ export default function RegistrationForm({ navigation }: Props) {
       return;
     }
 
-    try {
-      const storedCredentials = await AsyncStorage.getItem("userCredentials");
-      if (storedCredentials) {
-        const existingUser = JSON.parse(storedCredentials);
-        if (existingUser.email === email) {
-          Alert.alert("Error", "This email is already registered.");
-          return;
-        }
-      }
+    // try {
+    //   const storedCredentials = await AsyncStorage.getItem("userCredentials");
+    //   if (storedCredentials) {
+    //     const existingUser = JSON.parse(storedCredentials);
+    //     if (existingUser.email === email) {
+    //       Alert.alert("Error", "This email is already registered.");
+    //       return;
+    //     }
+    //   }
 
-      const userCredentials = { email, password, userName };
-      await AsyncStorage.setItem("userCredentials", JSON.stringify(userCredentials));
+    //   const userCredentials = { email, password, userName };
+    //   await AsyncStorage.setItem("userCredentials", JSON.stringify(userCredentials));
+    //   Alert.alert("Success", "User registered successfully");
+    //   navigation.navigate("SignIn"); // Navigate to the login screen
+    // } catch (error) {
+    //   console.error("Error saving user credentials:", error);
+    //   Alert.alert("Error", "Failed to save user credentials");
+    // }
+    try {
+      await AsyncStorage.setItem(
+        "userCredentials",
+        JSON.stringify({ email, password, userName })
+      );
       Alert.alert("Success", "User registered successfully");
-      navigation.navigate("SignIn"); // Navigate to the login screen
+      navigation.navigate("SignIn");
     } catch (error) {
-      console.error("Error saving user credentials:", error);
       Alert.alert("Error", "Failed to save user credentials");
     }
   };

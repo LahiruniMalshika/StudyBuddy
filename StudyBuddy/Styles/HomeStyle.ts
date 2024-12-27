@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     position: "relative",
   },
-  image: {
+  
+  cover: {
     width: 100,
     height: 100,
     borderRadius: 8,
@@ -85,6 +86,39 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 16,
+    color: "#007bff", // Blue text for headings
+    paddingLeft: 16,
+  },
+  list: {
+
+    paddingBottom: 20,
+
+  },
+  loadingContainer: {
+
+    flex: 1,
+
+    justifyContent: "center",
+
+    alignItems: "center",
+
+  },
+//   cover:{
+
+//   },
+  statusTag:{
+
+  },
+  title:{
+
+  },
+  author:{},
+  description:{},
+
 });
 
 export default styles;

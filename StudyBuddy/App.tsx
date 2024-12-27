@@ -19,7 +19,7 @@ export default function App() {
   return (
     <CountProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="SignIn">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Home" component={HomeScreen} />

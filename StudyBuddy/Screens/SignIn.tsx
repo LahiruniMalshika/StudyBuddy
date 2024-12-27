@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
 import styles from '../Styles/Styles';
+import LoginForm from '../Components/LoginForm';
 
 type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>;
 
@@ -21,15 +22,7 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.title}>Sign In</Text>
-        <TextInput placeholder="Email" style={styles.input} />
-        <TextInput placeholder="Password" secureTextEntry style={styles.input} />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.link}>Don't have an account? Sign Up</Text>
-        </TouchableOpacity>
+      <LoginForm navigation={navigation} />
       </View>
     </View>
   );

@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Image } fro
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
 import styles from '../Styles/Styles';
+import RegistrationForm from '../Components/RegistrationForm';
 
 type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>;
 
@@ -44,45 +45,8 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
       {/* Form Container */}
       <View style={styles.formContainer}>
         <Text style={styles.title}>Sign Up</Text>
+        <RegistrationForm navigation={navigation} />
         
-        {/* Input Fields */}
-        <TextInput
-          placeholder="Username"
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-        />
-        {/* Confirm Password Field */}
-        <TextInput
-          placeholder="Confirm Password"
-          secureTextEntry
-          style={styles.input}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
-
-        {/* Sign Up Button */}
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-
-        {/* Link to Sign In */}
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.link}>Already have an account? Sign In</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
