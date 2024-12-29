@@ -1,64 +1,31 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  StyleSheet,
-  Image,
-} from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../App";
-import styles from "../Styles/Styles";
-import RegistrationForm from "../Components/RegistrationForm";
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
+import styles from '../Styles/Styles';
+import LoginForm from '../Components/LoginForm';
 
-type SignUpScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "SignUp"
->;
+type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>;
 
 type Props = {
-  navigation: SignUpScreenNavigationProp;
+  navigation: SignInScreenNavigationProp;
 };
 
-const SignUp: React.FC<Props> = ({ navigation }) => {
-  // Managing state for form inputs
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  // Handle Sign Up action (you can add more functionality here)
-  const handleSignUp = () => {
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
-
-    // Perform form validation and authentication here
-    console.log("Signing up with:", { name, email, password });
-
-    // Example of navigation after signup (this can be changed as per your requirements)
-    navigation.navigate("SignIn");
-  };
-
+const SignIn: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      {/* Image Container */}
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/backgroundImage.png")} // Ensure this path is correct
+        <Image 
+          source={require('../assets/backgroundImage.png')} // Updated with the uploaded image
           style={styles.backgroundImage}
         />
       </View>
 
-      {/* Form Container */}
       <View style={styles.formContainer}>
-        <RegistrationForm navigation={navigation} />
+      <LoginForm navigation={navigation} />
       </View>
     </View>
   );
 };
 
-export default SignUp;
+export default SignIn;
