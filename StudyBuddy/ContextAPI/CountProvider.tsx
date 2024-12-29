@@ -4,10 +4,10 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 interface Book {
   key: string;
   title: string;
-  author_name?: string[];
-  cover_i?: number;
-  description?: string;
-  status: string;  // For demo purposes, assume status is passed
+  author: string;
+  coverId: string;
+  description: string;
+  status: string;
 }
 
 // Define the context properties for managing selected books
@@ -24,7 +24,9 @@ interface CountContextProps {
 const CountContext = createContext<CountContextProps | undefined>(undefined);
 
 // Create the CountProvider component
-export const CountProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const CountProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [bookCount, setBookCount] = useState(0);
   const [selectedBooks, setSelectedBooks] = useState<Book[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
@@ -32,15 +34,18 @@ export const CountProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   // Function to fetch books from OpenLibrary based on a search query
   const fetchBooks = async (query: string) => {
     try {
-      const response = await fetch(`https://openlibrary.org/search.json?q=${query}`);
+      const response = await fetch(
+        `https://openlibrary.org/search.json?q=${query}`
+      );
       const data = await response.json();
       const booksData = data.docs.map((book: any) => ({
         key: book.key,
         title: book.title,
-        author_name: book.author_name,
-        cover_i: book.cover_i,
-        description: book.first_sentence?.join(' ') || 'No description available',
-        status: 'Available', // Assume all books are "Available" for now
+        author: book.author_name?.[0] || "Unknown Author",
+        coverId: book.cover_i,
+        description:
+          book.first_sentence?.join(" ") || "No description available",
+        status: "Available", // Assume all books are "Available" for now
       }));
       setBooks(booksData); // Store the books from the API response
     } catch (error) {
@@ -72,3 +77,4 @@ export const useCount = () => {
   }
   return context;
 };
+
