@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Image } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';
-import styles from '../Styles/Styles';
-import RegistrationForm from '../Components/RegistrationForm';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+  Image,
+} from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../App";
+import styles from "../Styles/Styles";
+import RegistrationForm from "../Components/RegistrationForm";
 
-type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>;
+type SignUpScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "SignUp"
+>;
 
 type Props = {
   navigation: SignUpScreenNavigationProp;
@@ -13,10 +24,10 @@ type Props = {
 
 const SignUp: React.FC<Props> = ({ navigation }) => {
   // Managing state for form inputs
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Handle Sign Up action (you can add more functionality here)
   const handleSignUp = () => {
@@ -26,27 +37,25 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
     }
 
     // Perform form validation and authentication here
-    console.log('Signing up with:', { name, email, password });
+    console.log("Signing up with:", { name, email, password });
 
     // Example of navigation after signup (this can be changed as per your requirements)
-    navigation.navigate('SignIn');
+    navigation.navigate("SignIn");
   };
 
   return (
     <View style={styles.container}>
       {/* Image Container */}
       <View style={styles.imageContainer}>
-        <Image 
-          source={require('../assets/backgroundImage.png')} // Ensure this path is correct
+        <Image
+          source={require("../assets/backgroundImage.png")} // Ensure this path is correct
           style={styles.backgroundImage}
         />
       </View>
 
       {/* Form Container */}
       <View style={styles.formContainer}>
-        <Text style={styles.title}>Sign Up</Text>
         <RegistrationForm navigation={navigation} />
-        
       </View>
     </View>
   );

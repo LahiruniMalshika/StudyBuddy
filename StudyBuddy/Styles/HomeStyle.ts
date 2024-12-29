@@ -4,19 +4,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#f5f5f5", // Light Gray background
+    backgroundColor: "#f5f5f5", 
   },
   username: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
-    color: "#333333", // Dark Gray text
+    color: "#333333", 
   },
   heading1: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
-    color: "#007bff", // Blue text for headings
+    color: "#007bff", 
     paddingLeft: 16,
   },
   exerciseCountContainer: {
@@ -27,24 +27,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    backgroundColor: "#007bff", // Blue background for container
+    backgroundColor: "#007bff", 
   },
   exerciseCountText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#ffffff", // White text
+    color: "#ffffff", 
     width: "100%",
     padding: 10,
     textAlign: "center",
   },
   card: {
-    backgroundColor: "#ffffff", // White background for cards
+    backgroundColor: "#ffffff", 
     borderRadius: 8,
     padding: 16,
     margin: 8,
     width: "45%",
     alignItems: "center",
-    shadowColor: "#000000", // Black shadow color
+    shadowColor: "#000000", 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -61,17 +61,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 8,
-    color: "#333333", // Dark Gray text
+    color: "#333333", 
   },
   details: {
     fontSize: 14,
-    color: "#6c757d", // Gray text for details
+    color: "#6c757d", 
   },
   toggleButton: {
     position: "absolute",
     top: 8,
     right: 8,
-    backgroundColor: "#007bff", // Blue background for toggle button
+    backgroundColor: "#007bff", 
     width: 30,
     height: 30,
     borderRadius: 15,
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   toggleButtonAdded: {
-    backgroundColor: "#dc3545", // Red background for added toggle button
+    backgroundColor: "#dc3545", 
   },
   toggleButtonText: {
-    color: "#ffffff", // White text for toggle button
+    color: "#ffffff", 
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
-    color: "#007bff", // Blue text for headings
+    color: "#007bff", 
     paddingLeft: 16,
   },
   list: {
@@ -107,9 +107,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
   },
-//   cover:{
-
-//   },
   statusTag:{
 
   },
